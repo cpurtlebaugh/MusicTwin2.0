@@ -27,3 +27,12 @@ UserSchema.pre('save', function(){
     next();
   });
 });
+
+// compare login provided hash w/ db hash
+
+UserSchema.methods.comparePassword = function(password){
+  var user = this;
+  return bcrypt.compareSync(password, user.password);
+};
+
+module.exports = mongoose.mode('User', UserSchema)
