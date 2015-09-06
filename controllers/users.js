@@ -4,7 +4,7 @@ var index = function(req, res, next){
   User.find({}), function(err, users) {
     if (err) res.send(err);
     res.json({users: users});
-  });
+  };
 };
 
 
@@ -15,9 +15,9 @@ var showUser = function(req, res, next){
   })
 }
 
-var newUser = function(req, res, next){
-  res.render(users/new);
-};
+// var newUser = function(req, res, next){
+//   res.render(usersnew);
+// };
 
 var createUser = function(req, res, next){
   User.create(req.body.response, function(err, response){
@@ -26,10 +26,17 @@ var createUser = function(req, res, next){
   });
 };
 
-var editUser = function(req, res, next){
-  User.findById(req.body.response, )
-}
+// var editUser = function(req, res, next){
+//   User.findById(req.body.response, )
+// }
 
-var update =
+// var update =
 
-var delete =
+// var delete =
+
+module.exports = {
+  index: index,
+  show: showUser,
+  // new: newUser,
+  create: createUser,
+};

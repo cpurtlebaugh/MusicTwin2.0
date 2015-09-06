@@ -4,11 +4,11 @@ var mongoose    = require('mongoose'),
 
 
 var UserSchema  = new Schema ({
-    firstName   = String,
-    lastName    = String,
-    email       = String,
-    username    = {type: String, required: true, index: {unique: true}},
-    password    = {type: String, required: true, select: false,
+    firstName: String,
+    lastName: String,
+    email: String,
+    username: {type: String, required: true, index: {unique: true}},
+    password: {type: String, required: true, select: false},
 });
 
 // hash the pw before the user is saved
@@ -35,4 +35,4 @@ UserSchema.methods.comparePassword = function(password){
   return bcrypt.compareSync(password, user.password);
 };
 
-module.exports = mongoose.mode('User', UserSchema)
+module.exports = mongoose.model('User', UserSchema)

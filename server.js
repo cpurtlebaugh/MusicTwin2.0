@@ -1,17 +1,27 @@
 // requiring / loading all dependencies
 var express         = require ('express'),
     app             = express(),
-    path            = require ('path'),
-    favicon         = require ('serve-favicon'),
-    logger          = require ('morgan'),
+    bodyParser      = require ('body-parser'),
     cookieParser    = require ('cookie-parser'),
-    bodyParser      = require ('body-parser');
+    logger          = require ('morgan'),
+    path            = require ('path'),
+    favicon         = require ('serve-favicon');
 
-// check that MongoD is running
-require('net').connect(27017, 'localhost').on('error', function(){
-  console.log("you must BOW before da MongoD yo!");
-  process.exit(0);
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.use(function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+  next();
 });
+
+// // check that MongoD is running
+// require('net').connect(27017, 'localhost').on('error', function(){
+//   console.log("you must BOW before da MongoD yo!");
+//   process.exit(0);
+// });
 
 // loading routes defined by route's index file
 var routes = require('./routes/index');
@@ -39,10 +49,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // insert middleware that points to our route definitions
 
 // DEFINED ROUTES ARE IN HERE >> routes, ie './routes/index'
-app.use('/', routes);
 
-// var apiRoutes = require('./app/routes/api')(app, express);
-// app.use('/api', apiRoutes);
+
+var apiRouter = require('./routes/index')(app, express);
+app.use('/index', apiRouter);
 
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/views/index.html'));
