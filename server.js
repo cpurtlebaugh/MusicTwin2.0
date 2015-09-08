@@ -17,6 +17,8 @@ require('net').connect(27017, 'localhost').on('error', function() {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+
+
 // configure our app to handle CORS requests
 
 app.use(function(req, res, next) {
@@ -33,9 +35,13 @@ app.use(morgan('dev'));
 // load mongoose and connect to a database
 mongoose.connect(config.database);
 
+// // regular view engines
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
+
 // // set static files location
 // // used for requests that our frontend will make
-app.use(express.static(__dirname + './public'));
+app.use(express.static(__dirname + '/public'));
 
 // ROUTES FOR API =================
 
@@ -47,7 +53,7 @@ app.use('/api', apiRoutes);
 // MAIN CATCHALL ROUTE ---------------
 // SEND USERS TO FRONTEND ------------
 // has to be registered after API ROUTES
-app.get('*', function(req, res) {
+app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/views/index.html'));
 });
 
