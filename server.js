@@ -1,14 +1,23 @@
-// requiring / loading all dependencies
-var express         = require ('express'),
-    app             = express(),
-    bodyParser      = require ('body-parser'),
-    cookieParser    = require ('cookie-parser'),
-    logger          = require ('morgan'),
-    path            = require ('path'),
-    favicon         = require ('serve-favicon');
+var express    = require('express');    // call express
+var app        = express();         // define our app using express
+var bodyParser = require('body-parser');  // get body-parser
+var morgan     = require('morgan');     // used to see requests
+var mongoose   = require('mongoose');
+var config     = require('./config');
+var path       = require('path');
+
+require('net').connect(27017, 'localhost').on('error', function() {
+  console.log("YOU MUST BOW BEFORE THE MONGOD FIRST, MORTAL!");
+  process.exit(0);
+});
+
+// APP CONFIGURATION ==================
+// use body parser so we can grab information from POST requests
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// configure our app to handle CORS requests
 
 app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -17,43 +26,27 @@ app.use(function(req, res, next) {
   next();
 });
 
-// // check that MongoD is running
-// require('net').connect(27017, 'localhost').on('error', function(){
-//   console.log("you must BOW before da MongoD yo!");
-//   process.exit(0);
-// });
 
-// loading routes defined by route's index file
-var routes = require('./routes/index');
+// log all requests to the console
+app.use(morgan('dev'));
 
-// load mongoose and connect to the DB
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/MusicTwin2');
+// load mongoose and connect to a database
+mongoose.connect(config.database);
 
-// // start running express and save the configruations
-// // with the app variable
-// var app = express();
+// // set static files location
+// // used for requests that our frontend will make
+app.use(express.static(__dirname + './public'));
 
+// ROUTES FOR API =================
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-// insert middleware that points to our route definitions
-
-// DEFINED ROUTES ARE IN HERE >> routes, ie './routes/index'
+// API ROUTES ------------------------
+var apiRoutes = require('./app/routes/api')(app, express);
+app.use('/api', apiRoutes);
 
 
-var apiRouter = require('./routes/index')(app, express);
-app.use('/index', apiRouter);
-
+// MAIN CATCHALL ROUTE ---------------
+// SEND USERS TO FRONTEND ------------
+// has to be registered after API ROUTES
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/views/index.html'));
 });
@@ -90,4 +83,6 @@ app.use(function(err, req, res, next) {
 });
 
 
-module.exports = app;
+app.listen(config.port);
+console.log('Magic happens on port ' + config.port);
+

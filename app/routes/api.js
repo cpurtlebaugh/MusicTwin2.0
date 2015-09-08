@@ -1,37 +1,14 @@
-var express = require('express');
-var router = express.Router();
-var usersController = require('../controllers/users');
+var bodyParser = require('body-parser');  // get body-parser
+var User       = require('../models/user');
+var jwt        = require('jsonwebtoken');
+var config     = require('../../config');
+
+// super secret for creating tokens
+var superSecret = config.secret;
 
 module.exports = function(app, express) {
 
   var apiRouter = express.Router();
-
-  // route to generate sample user
-  apiRouter.post('/sample', function(req, res) {
-
-    // look for the user named test
-    User.findOne({ 'username': 'test' }, function(err, user) {
-
-      // if there is no test user, create one
-      if (!user) {
-        var sampleUser = new User();
-
-        sampleUser.name = 'test';
-        sampleUser.username = 'test';
-        sampleUser.password = 'test';
-
-        sampleUser.save();
-      } else {
-        console.log(user);
-
-        // if there is a test user, update the password
-        user.password = 'test';
-        user.save();
-      }
-
-    });
-
-  });
 
   // route to authenticate a user (POST http://localhost:8080/api/authenticate)
   apiRouter.post('/authenticate', function(req, res) {
@@ -63,7 +40,7 @@ module.exports = function(app, express) {
           // if user is found and password is right
           // create a token
           var token = jwt.sign({
-            name: user.name,
+            firstName: user.firstName,
             username: user.username
           }, superSecret, {
             expiresInMinutes: 1440 // expires in 24 hours
@@ -135,7 +112,7 @@ module.exports = function(app, express) {
     .post(function(req, res) {
 
       var user = new User();    // create a new instance of the User model
-      user.name = req.body.name;  // set the users name (comes from the request)
+      user.firstName = req.body.firstName;  // set the users name (comes from the request)
       user.username = req.body.username;  // set the users username (comes from the request)
       user.password = req.body.password;  // set the users password (comes from the request)
 
@@ -186,7 +163,7 @@ module.exports = function(app, express) {
         if (err) res.send(err);
 
         // set the new user information if it exists in the request
-        if (req.body.name) user.name = req.body.name;
+        if (req.body.firstName) user.firstName = req.body.firstName;
         if (req.body.username) user.username = req.body.username;
         if (req.body.password) user.password = req.body.password;
 
@@ -220,12 +197,3 @@ module.exports = function(app, express) {
   return apiRouter;
 };
 
-
-
-// router.get(    '/users',          usersController.index);
-// // router.get(    '/users/new',      usersController.new)
-// router.get(    '/users/:id',      usersController.show);
-// // router.get(    '/users/:id/edit', usersController.edit)
-// router.post(   '/users',          usersController.create);
-// // router.put(    '/users/:id',      usersController.update)
-// // router.delete( '/users/:id',      usersController.destroy)

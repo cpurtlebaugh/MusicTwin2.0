@@ -2,9 +2,7 @@
   "name": "MusicTwin2.0",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
-    "start": "node ./bin/www"
-  },
+  "main": "server.js",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.13.2",
@@ -15,6 +13,7 @@
     "jsonwebtoken": "^5.0.5",
     "mongoose": "^4.1.5",
     "morgan": "~1.6.1",
+    "path": "^0.11.14",
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
