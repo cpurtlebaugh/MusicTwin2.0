@@ -8,11 +8,12 @@ var UserSchema  = new Schema ({
     lastName: String,
     email: String,
     username: {type: String, required: true, index: {unique: true}},
-    password: {type: String, required: true, select: false},
+    password: {type: String, required: true, select: false}
 });
 
 // hash the pw before the user is saved
 UserSchema.pre('save', function(){
+  console.log('made it inside .pre');
   var user = this;
 
   // has only if the user is new or a current user has changed it
@@ -35,4 +36,4 @@ UserSchema.methods.comparePassword = function(password){
   return bcrypt.compareSync(password, user.password);
 };
 
-module.exports = mongoose.model('User', UserSchema)
+module.exports = mongoose.model('User', UserSchema);

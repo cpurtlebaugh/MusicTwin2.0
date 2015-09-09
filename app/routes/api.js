@@ -111,6 +111,7 @@ module.exports = function(app, express) {
     // create a user (accessed at POST http://localhost:8080/users)
     .post(function(req, res) {
       console.log("Hello in the user post function");
+      console.log(req.body);
       var user = new User();    // create a new instance of the User model
 
       user.firstName = req.body.firstName;  // set the users name (comes from the request)
