@@ -36,8 +36,8 @@ app.use(morgan('dev'));
 mongoose.connect(config.database);
 
 // // regular view engines
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 // // set static files location
 // // used for requests that our frontend will make

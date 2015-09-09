@@ -5,7 +5,7 @@
     .module('authService', [])
 
 // auth factory for handling tokens
-    .factory('Auth', function($window){
+    .factory('AuthToken', function($window){
       var authTokenFactory = {};
 
 // get auth token out of local storage
@@ -14,14 +14,14 @@
       };
 
 // funtion to set token or clear token
-      authTokenFactory.setToken = function(){
+      authTokenFactory.setToken = function(token){
         if(token)
           $window.localStorage.setItem('token', token);
         else
           $window.localStorage.removeItem('token');
       };
 
-      return AuthFactory;
+      return authTokenFactory;
     })
 
 // auth factory for logging in, get info
@@ -30,10 +30,10 @@
 // create auth actory obj for logging in
       var AuthFactory = {};
 
-      authTokenFactory.login = function(username, password){
+      AuthFactory.login = function(username, password){
         return $http.post('api/authenticate', {
           username: username,
-          password: password;
+          password: password
         })
         .success(function(data){
           AuthToken.setToken(data.token);
@@ -42,18 +42,18 @@
       };
 
 // log a user out by clearing the token
-      authTokenFactory.logout = function(){
+      AuthFactory.logout = function(){
         AuthToken.setToken();
       };
 
-      authTokenFactory.isLoggedIn = function(){
+      AuthFactory.isLoggedIn = function(){
         if(AuthToken.getToken())
           return true;
         else
           return false;
       };
 
-      authTokenFactory.getToken = function(){
+      AuthFactory.getToken = function(){
       if(AuthToken.getToken())
          return $http.get('/api/me');
        else
