@@ -12,7 +12,7 @@ var UserSchema  = new Schema ({
 });
 
 // hash the pw before the user is saved
-UserSchema.pre('save', function(){
+UserSchema.pre('save', function(next){
   console.log('made it inside .pre');
   var user = this;
 
