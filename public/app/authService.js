@@ -71,7 +71,7 @@
 
     })
 
-    .factory('AuthInterceptor', function($http, $q, AuthToken){
+    .factory('AuthInterceptor', function($q, $location, AuthToken){
       var interceptorFactory = {};
 
       interceptorFactory.request = function(config){

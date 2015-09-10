@@ -9,29 +9,29 @@
       var userFactory = {};
 
 // get a single user
-    userFactory.get(function(id){
+    userFactory.get = function(id){
       return $http.get('/api/users/' + id);
-    });
+    };
 
 // get all users
-    userFactory.get(function(){
+    userFactory.all = function(){
       return $http.get('/api/users/');
-    });
+    };
 
 // create / post a user
-    userFactory.get(function(userData){
+    userFactory.get = function(userData){
       return $http.post('/api/users', userData);
-    });
+    };
 
 // update a user
-    userFactory.get(function(id, userData){
-      return $http.put('/api/users' + id, userData);
-    });
+    userFactory.get = function(id, userData){
+      return $http.put('/api/users/' + id, userData);
+    };
 
 // delete a user
-    userFactory.delete(function(id){
-      return $http.delete('/api/users' + id);
-    });
+    userFactory.delete = function(id){
+      return $http.delete('/api/users/' + id);
+    };
 
 // return the entire user factory obj
   return userFactory;
