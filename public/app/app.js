@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-  .module('app', ['ui.router', 'authService', 'userService' ])
+  .module('app', ['ui.router', 'authService', 'userService'])
   .config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider){
 
@@ -10,7 +10,9 @@
     $stateProvider
       .state('welcome', {
         url: '/',
-        templateUrl: 'views/welcome.html'
+        templateUrl: 'views/welcome.html',
+        controller: 'LoginController',
+        controllerAs: 'vm'
       })
       .state('login', {
         url: '/login',
@@ -20,7 +22,9 @@
       })
       .state('home', {
         url: '/home',
-        templateUrl: 'views/home.html'
+        templateUrl: 'views/home.html',
+        controller: 'LoginController',
+        controllerAs: 'vm'
       })
 
     $urlRouterProvider.otherwise('/');

@@ -9,13 +9,7 @@
 
   function MainController(){
     var vm = this;
-
-    // get info to check if logged in
-
-    vm.loggedIn = Auth.isLoggedIn();
-
-  }
-
+  };
 })();
 
 

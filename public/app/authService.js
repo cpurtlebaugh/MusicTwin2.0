@@ -60,6 +60,13 @@
         return $q.reject({message: 'User has no token'});
       };
 
+      AuthFactory.getUser = function(){
+        if(AuthToken.getToken())
+          return $http.get('/api/me', {cache: true});
+        else
+          return $q.reject({message: 'User has no token'});
+      };
+
       return AuthFactory;
 
     })
