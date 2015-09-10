@@ -21,11 +21,15 @@
           $window.localStorage.removeItem('token');
       };
 
+      authTokenFactory.saveToken = function(token){
+          $window.localStorage.saveItem = token;
+      }
+
       return authTokenFactory;
     })
 
 // auth factory for logging in, get info
-    .factory('Auth', function($http, $q, AuthToken){
+    .factory('Auth', function($http, $q, AuthToken, User){
 
 // create auth actory obj for logging in
       var AuthFactory = {};
@@ -41,6 +45,20 @@
         });
       };
 
+
+
+      AuthFactory.loginToken = function(){
+        var def = $q.defer();
+        $http.get('/login/token').then(function(res){
+          User.user = res.data.user;
+          def.resolve(res.data.user);
+        })
+        return def.promise;
+      };
+
+
+
+
 // log a user out by clearing the token
       AuthFactory.logout = function(){
         AuthToken.setToken();
@@ -51,13 +69,6 @@
           return true;
         else
           return false;
-      };
-
-      AuthFactory.getToken = function(){
-      if(AuthToken.getToken())
-         return $http.get('/api/me');
-       else
-        return $q.reject({message: 'User has no token'});
       };
 
       AuthFactory.getUser = function(){

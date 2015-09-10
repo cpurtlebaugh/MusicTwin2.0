@@ -13,27 +13,31 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
 
 
-  <script src="app/app.js"></script>
-  <script src="app/MainController.js"></script>
-  <script src="app/LoginController.js"></script>
-  <script src="app/UserController.js"></script>
-  <script src="app/authService.js"></script>
   <script src="app/userService.js"></script>
+  <script src="app/authService.js"></script>
+  <script src="app/UserController.js"></script>
+  <script src="app/app.js"></script>
+  <script src="app/LoginController.js"></script>
+  <script src="app/app.routes.js"></script>
+  <script src="app/MainController.js"></script>
 
   <title>Test</title>
 
 </head>
-<body ng-app="app" ng-controller="MainController as mainCtrl">
+<body ng-app="app">
 {{2+2}}
-  <nav class="nav navbar-inverse" role="navigation">
-    <div class="navbar-header">
-      <a class="navbar" ui-sref="#"> Twin's
-    </div>
-    <ul>
-      <li><a ui-sref="home">Home</a></li>
-      <li><a ui-sref="login">Login</a></li>
-    </ul>
-  </nav>
+
+    <nav class="nav navbar-inverse" role="navigation">
+      <div class="navbar-header">
+        <a class="navbar" ui-sref="#">
+      </div>
+          <h1> MUSIC TWIN </h1>
+      <ul>
+        <li><a ui-sref="home">Home</a></li>
+        <li><a ui-sref="login">Login</a></li>
+        <li><a ui-sref="signup">Signup</a></li>
+      </ul>
+    </nav>
 
   <div ui-view></div>
 

@@ -5,23 +5,35 @@
     .module('userCtrl', ['userService'])
     .controller('UserController', UserController);
 
-  UserController.$inject = ['User'];
+  UserController.$inject = ['User', '$state'];
 
-  function UserController(User){
+  function UserController(User, $state){
     var vm = this;
 
+    vm.user = User.user;
+
 // set processing variable to show loaded items
-    vm.processing = true;
-
-    vm.getUser = function(){
-      vm.processing = true;
-      vm.allUsers = User.all();
-      console.log(vm.allUsers);
-
+    vm.test = function() {
+      console.log('hi');
     }
+    vm.register = function(){
+        vm.dataLoading = true;
+        User.create(vm.userData)
+        .then(function(response){
+          if(response.success) return $state.go('welcome');
+          else return $state.reload();
+        console.log('i am inside the register f() in UserController');
+        vm.userData = {};
+        vm.message = data.message
+        });
+      };
 
-    vm.getUser();
-  };
 
+
+    // vm.allUsers = User.all();
+    // console.log(vm.allUsers);
+    // console.log('i am following the all use call');
+
+};
 
 })();

@@ -10,8 +10,9 @@
       .state('welcome', {
         url: '/',
         templateUrl: 'views/welcome.html',
-        controller: 'LoginController',
-        controllerAs: 'vm'
+        controller: 'UserController',
+        controllerAs: 'vm',
+        authenticate: true
       })
       .state('login', {
         url: '/login',
@@ -19,10 +20,16 @@
         controller: 'LoginController',
         controllerAs: 'vm'
       })
+      .state('signup', {
+        url: '/signup',
+        templateUrl: 'views/signup.html',
+        controller: 'UserController',
+        controllerAs: 'vm'
+      })
       .state('home', {
         url: '/home',
         templateUrl: 'views/home.html',
-        controller: 'UserController',
+        controller: 'LoginController',
         controllerAs: 'vm'
       })
 

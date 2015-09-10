@@ -10,13 +10,28 @@ module.exports = function(app, express) {
 
   var apiRouter = express.Router();
 
+
+  // apiRouter.get('/login/token', function(req, res){
+
+  //   //check for token
+
+  //   // if token and it's not expired then fetch user from db and return user as json
+
+  //   // else return empty object
+
+
+  // });
+
+
+
+
   // route to authenticate a user (POST http://localhost:8080/api/authenticate)
   apiRouter.post('/authenticate', function(req, res) {
 
     // find the user
     User.findOne({
       username: req.body.username
-    }).select('name username password').exec(function(err, user) {
+    }).select('firstName lastName email username password').exec(function(err, user) {
 
       if (err) throw err;
 
@@ -37,6 +52,7 @@ module.exports = function(app, express) {
           });
         } else {
 
+          user.password = undefined;
           // if user is found and password is right
           // create a token
           var token = jwt.sign({
@@ -47,10 +63,12 @@ module.exports = function(app, express) {
           });
 
           // return the information including token as JSON
+
           res.json({
             success: true,
             message: 'Enjoy your token!',
-            token: token
+            token: token,
+            user: user
           });
         }
 
@@ -110,7 +128,7 @@ module.exports = function(app, express) {
 
     // create a user (accessed at POST http://localhost:8080/users)
     .post(function(req, res) {
-      console.log("Hello in the user post function");
+      console.log("Hello im in the user post function");
       console.log(req.body);
       var user = new User();    // create a new instance of the User model
 
@@ -196,7 +214,7 @@ module.exports = function(app, express) {
       });
     });
 
-  // api endpoint to get user information
+
   apiRouter.get('/me', function(req, res) {
     res.send(req.decoded);
   });

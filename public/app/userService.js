@@ -8,6 +8,9 @@
 
       var userFactory = {};
 
+//
+    userFactory.user = {};
+
 // get a single user
     userFactory.get = function(id){
       return $http.get('/api/users/' + id);
@@ -19,12 +22,12 @@
     };
 
 // create / post a user
-    userFactory.get = function(userData){
+    userFactory.create = function(userData){
       return $http.post('/api/users', userData);
     };
 
 // update a user
-    userFactory.get = function(id, userData){
+    userFactory.update = function(id, userData){
       return $http.put('/api/users/' + id, userData);
     };
 
