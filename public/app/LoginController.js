@@ -23,30 +23,19 @@
     }
   });
 
+
 // function to handle user login
     vm.login = function(){
       Auth.login(vm.username, vm.password)
         .then(function(res){
           User.user = res.data.user;
+          console.log(res.data)
           console.log(User.user);
           return $state.go('welcome');
         }, function() {
           return $state.reload();
         });
     };
-
-// function to handle user logout
-    // vm.logout = function(){
-    //   Auth.logout(v)
-    // // reset all user info
-    //   vm.user = {};
-    //   User.user = {};
-    //   return $state.go('welcome');
-    // };
-
-    // vm.signup = function(){
-
-    // }
 
   };
 
