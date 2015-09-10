@@ -12,10 +12,11 @@
 
   .run(function(Auth, User, $state){
     Auth.loginToken().then(function(user){
-      console.log(user);
       if(user){
+        User.user = user;
         $state.go('welcome');
       } else {
+        User.user = {};
         $state.go('home');
       }
     });

@@ -22,7 +22,6 @@
         .then(function(response){
           if(response.success) return $state.go('welcome');
           else return $state.reload();
-        console.log('i am inside the register f() in UserController');
         vm.userData = {};
         vm.message = data.message
         });

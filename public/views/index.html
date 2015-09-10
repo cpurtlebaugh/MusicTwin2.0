@@ -24,7 +24,7 @@
   <title>Test</title>
 
 </head>
-<body ng-app="app">
+<body ng-app="app" ng-controller="MainController as mainCtrl">
 {{2+2}}
 
     <nav class="nav navbar-inverse" role="navigation">
@@ -33,9 +33,13 @@
       </div>
           <h1> MUSIC TWIN </h1>
       <ul>
-        <li><a ui-sref="home">Home</a></li>
-        <li><a ui-sref="login">Login</a></li>
-        <li><a ui-sref="signup">Signup</a></li>
+        <li><a ui-sref="home">| Home |</a></li>
+
+        <li ng-hide="mainCtrl.isUser()"><a ui-sref="login"> Login |</a></li>
+
+        <li ng-hide="mainCtrl.isUser()"><a ui-sref="signup"> Signup |</a></li>
+
+        <li ng-show="mainCtrl.isUser()"><a ng-click="mainCtrl.logout()"> Logout |</a></li>
       </ul>
     </nav>
 

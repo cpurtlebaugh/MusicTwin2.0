@@ -11,16 +11,26 @@ module.exports = function(app, express) {
   var apiRouter = express.Router();
 
 
-  // apiRouter.get('/login/token', function(req, res){
-
-  //   //check for token
-
-  //   // if token and it's not expired then fetch user from db and return user as json
-
-  //   // else return empty object
-
-
-  // });
+  apiRouter.get('/login/token', function(req, res){
+    var token = req.headers['x-access-token'];
+    if(token){
+      jwt.verify(token, superSecret, function(err, decoded) {
+        if (err) {
+          res.json({});
+        } else {
+          User.findById(decoded.id, function(err, user){
+            if (err) {
+              res.json({});
+            } else {
+              res.json({user: user});
+            }
+          });
+        }
+      });
+    } else {
+      res.json({});
+    }
+  });
 
 
 
@@ -31,7 +41,7 @@ module.exports = function(app, express) {
     // find the user
     User.findOne({
       username: req.body.username
-    }).select('firstName lastName email username password').exec(function(err, user) {
+    }).select('firstName lastName email username password twins').exec(function(err, user) {
 
       if (err) throw err;
 
@@ -57,7 +67,8 @@ module.exports = function(app, express) {
           // create a token
           var token = jwt.sign({
             firstName: user.firstName,
-            username: user.username
+            username: user.username,
+            id: user._id
           }, superSecret, {
             expiresInMinutes: 1440 // expires in 24 hours
           });

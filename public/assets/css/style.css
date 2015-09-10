@@ -5,6 +5,15 @@ body {
   color: white;
 }
 
+ul {
+  list-style-type: none;
+
+}
+
+li {
+    display: inline;
+}
+
 a {
   color: #00B7FF;
 }

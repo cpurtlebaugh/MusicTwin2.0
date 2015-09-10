@@ -12,25 +12,28 @@
         templateUrl: 'views/welcome.html',
         controller: 'UserController',
         controllerAs: 'vm',
-        authenticate: true
+        reqAuth: true
       })
       .state('login', {
         url: '/login',
         templateUrl: 'views/login.html',
         controller: 'LoginController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        reqAuth: false
       })
       .state('signup', {
         url: '/signup',
         templateUrl: 'views/signup.html',
         controller: 'UserController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        reqAuth: false
       })
       .state('home', {
         url: '/home',
         templateUrl: 'views/home.html',
         controller: 'LoginController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        reqAuth: false
       })
 
    $urlRouterProvider.otherwise('/');

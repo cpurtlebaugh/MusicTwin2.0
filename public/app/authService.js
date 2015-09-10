@@ -21,10 +21,6 @@
           $window.localStorage.removeItem('token');
       };
 
-      authTokenFactory.saveToken = function(token){
-          $window.localStorage.saveItem = token;
-      }
-
       return authTokenFactory;
     })
 
@@ -49,7 +45,7 @@
 
       AuthFactory.loginToken = function(){
         var def = $q.defer();
-        $http.get('/login/token').then(function(res){
+        $http.get('/api/login/token').then(function(res){
           User.user = res.data.user;
           def.resolve(res.data.user);
         })
@@ -62,6 +58,8 @@
 // log a user out by clearing the token
       AuthFactory.logout = function(){
         AuthToken.setToken();
+        User.user = {};
+        console.log('i am null');
       };
 
       AuthFactory.isLoggedIn = function(){

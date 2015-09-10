@@ -10,7 +10,39 @@ User.remove({}, function(err) {
 });
 
 var newUsers = [
-    {firstName: "john", lastName: "doe", username: "jdoe", email: "jdoe@doe.com", password: "jdoe"},
+    {firstName: "john", lastName: "doe", username: "jdoe", email: "jdoe@doe.com", password: "jdoe",
+      twins: [
+        {name: "Verite",
+          videoStreams: {US: "200,000", CA: "289,000", UK: "190000"},
+          musicStreams: {US: "184039", CA: "804000", UK: "102999"},
+          blogScore: {US:"60", CA: "89", UK: "39"},
+          twitterFeed: "",
+          artistImage: ""},
+
+        {name: "Olivver the Kid",
+          videoStreams: {US: "100000", CA: "80000", UK: "128933"},
+          musicStreams: {US: "808933", CA: "98000", UK: "101928"},
+          blogScore: {US: "43", CA: "20", UK: "39"},
+          twitterFeed: "",
+          artistImage: ""},
+
+        {name: "EZA",
+          videoStreams: {US: "120000", CA: "50000", UK: "50000"},
+          musicStreams: {US: "208199", CA: "90839", UK: "100000"},
+          blogScore: {US:"30", CA: "20", UK: "15"},
+          twitterFeed: "",
+          artistImage: ""}
+
+        // {name: "", videoStreams: {US: "", CA: "", UK: ""},
+        //   musicStreams: {US: "", CA: "", UK: ""},
+        //   blogScore: {US:"", CA: "", UK: ""}, twitterFeed: "", artistImage: ""},
+
+        // {name: "", videoStreams: {US: "", CA: "", UK: ""},
+        //   musicStreams: {US: "", CA: "", UK: ""},
+        //   blogScore: {US:"", CA: "", UK: ""}, twitterFeed: "", artistImage: ""}
+      ]
+
+      },
     {firstName: "ann", lastName: "doe", username: "adoe", email: "adoe@doe.com", password: "adoe"}
   ];
 
