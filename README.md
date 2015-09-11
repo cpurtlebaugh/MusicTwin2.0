@@ -18,4 +18,4 @@ Used for wireframing, MVP, Icebox, and completed tasks.
 - Express
 - Angular.js
 - Node.js
-- JSON WebTokens
+- Heroku / MongoLab
