@@ -11,6 +11,11 @@ var path       = require('path');
 //   process.exit(0);
 // });
 
+var mongoURI = 'mongodb://localhost/travel_app';
+if (process.env.NODE_ENV === 'production') {
+    mongoURI= process.env.MONGOLAB_URI;
+}
+mongoose.connect(mongoURI);
 
 // APP CONFIGURATION ==================
 // use body parser so we can grab information from POST requests
