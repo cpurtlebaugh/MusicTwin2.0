@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/MusicTwin2');
+// mongoose.connect('mongodb://localhost:27017/MusicTwin2');
+mongoose.connect(MONGOLAB_URI);
+
 
 var User = require('./app/models/User');
 

@@ -6,10 +6,11 @@ var mongoose   = require('mongoose');
 var config     = require('./config');
 var path       = require('path');
 
-require('net').connect(27017, 'localhost').on('error', function() {
-  console.log("YOU MUST BOW BEFORE THE MONGOD FIRST, MORTAL!");
-  process.exit(0);
-});
+// require('net').connect(27017, 'localhost').on('error', function() {
+//   console.log("YOU MUST BOW BEFORE THE MONGOD FIRST, MORTAL!");
+//   process.exit(0);
+// });
+
 
 // APP CONFIGURATION ==================
 // use body parser so we can grab information from POST requests
