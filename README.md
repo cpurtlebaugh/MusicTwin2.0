@@ -9,7 +9,6 @@ fan conversions.
 
 ## Trello
 Used for wireframing, MVP, Icebox, and completed tasks.
-https://trello.com/b/R9Cyskm1/music-twin2
 [Visit trello](https://trello.com/b/R9Cyskm1/music-twin2)
 
 ## Technologies
