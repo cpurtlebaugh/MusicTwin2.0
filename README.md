@@ -9,6 +9,7 @@ fan conversions.
 
 ## Trello
 Used for wireframing, MVP, Icebox, and completed tasks.
+
 [Visit trello](https://trello.com/b/R9Cyskm1/music-twin2)
 
 ## Technologies
@@ -18,4 +19,4 @@ Used for wireframing, MVP, Icebox, and completed tasks.
 - Express
 - Angular.js
 - Node.js
-- Heroku / MongoLab
+- Heroku/MongoLab
